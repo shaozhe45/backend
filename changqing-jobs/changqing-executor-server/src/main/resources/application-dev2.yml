@@ -1,0 +1,19 @@
+### xxl-job email
+xxl.job:
+  accessToken:
+  # 以下是client 执行器端配置（注意：若不想配置调度器也是执行器，请自行参考xxl）
+  admin:
+    addresses: http://${JOBS_IP:127.0.0.1}:${JOBS_PORT:8767}/changqing-jobs-server
+  executor:
+    appname: ${spring.application.name}
+    ip: ${EXECUTOR_IP:127.0.0.1}
+    port: ${EXECUTOR_PORT:8777}
+    registryLazy: 10000  # 延迟10秒注册，防止首次启动报错
+    logpath: ${logging.file.path}/${spring.application.name}/
+    logretentiondays: -1
+
+server:
+  servlet:
+    context-path: /${spring.application.name}
+  port: 8776
+

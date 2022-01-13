@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>changqing-authority</artifactId>
+        <groupId>com.changqing.gov</groupId>
+        <version>c.2.6.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>changqing-authority-biz</artifactId>
+    <name>${project.artifactId}</name>
+    <description>权限服务业务模块</description>
+    <dependencies>
+        <dependency>
+            <groupId>com.changqing.gov</groupId>
+            <artifactId>changqing-authority-entity</artifactId>
+            <version>${changqing-project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.changqing.gov</groupId>
+            <artifactId>changqing-databases</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.changqing.gov</groupId>
+            <artifactId>changqing-j2cache-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.changqing.gov</groupId>
+            <artifactId>changqing-dozer-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.changqing.gov</groupId>
+            <artifactId>changqing-boot</artifactId>
+        </dependency>
+
+        <!-- user 只有权限服务 放在biz 层 -->
+        <dependency>
+            <groupId>com.changqing.gov</groupId>
+            <artifactId>changqing-security-starter</artifactId>
+        </dependency>
+        <!-- log 只有权限服务biz模块引用，其他服务都在controller模块 -->
+        <dependency>
+            <groupId>com.changqing.gov</groupId>
+            <artifactId>changqing-log-starter</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus</artifactId>
+        </dependency>
+
+        <!-- @RefreshScope 需要使用 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+        </dependency>
+
+    </dependencies>
+
+</project>

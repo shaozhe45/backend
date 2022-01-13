@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.changqing.gov</groupId>
+        <artifactId>changqing-admin-cloud</artifactId>
+        <version>c.2.6.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>changqing-authority</artifactId>
+    <name>${project.artifactId}</name>
+    <description>权限服务</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>changqing-authority-api</module>
+        <module>changqing-authority-entity</module>
+        <module>changqing-authority-biz</module>
+        <module>changqing-authority-controller</module>
+        <module>changqing-authority-server</module>
+    </modules>
+
+</project>

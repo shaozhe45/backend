@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changqing.gov.group.dao.KnowledgeRelationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.changqing.gov.group.entity.KnowledgeRelation">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+        <result column="relation_type" jdbcType="VARCHAR" property="relationType"/>
+        <result column="relation_content" jdbcType="VARCHAR" property="relationContent"/>
+        <result column="type_id" jdbcType="BIGINT" property="typeId"/>
+        <result column="type" jdbcType="VARCHAR" property="type"/>
+        <result column="name_id" jdbcType="BIGINT" property="nameId"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,create_time,create_user,update_time,update_user,
+        relation_type, relation_content, type_id, name_id, status
+    </sql>
+
+    <select id="getRelationPage" parameterType="com.changqing.gov.group.entity.KnowledgeRelation"
+            resultType="com.changqing.gov.group.entity.KnowledgeRelation">
+
+    </select>
+
+</mapper>

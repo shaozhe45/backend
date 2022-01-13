@@ -1,0 +1,11 @@
+changqing:
+  mysql:
+    ip: ${MYSQL_IP:192.168.1.201}
+    port: 3218
+    username: root
+    password: root
+
+xxl.job:
+  executor:
+    ip: ${EXECUTOR_IP:192.168.1.201}
+    port: ${EXECUTOR_PORT:8771}

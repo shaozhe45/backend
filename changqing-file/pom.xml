@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.changqing.gov</groupId>
+        <artifactId>changqing-admin-cloud</artifactId>
+        <version>c.2.6.0-SNAPSHOT</version>
+        <relativePath>../</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>changqing-file</artifactId>
+    <name>${project.artifactId}</name>
+    <description>文件服务</description>
+
+    <packaging>pom</packaging>
+    <modules>
+        <module>changqing-file-api</module>
+        <module>changqing-file-entity</module>
+        <module>changqing-file-biz</module>
+        <module>changqing-file-controller</module>
+        <module>changqing-file-server</module>
+    </modules>
+
+    <!--    <dependencyManagement>-->
+    <!--        <dependencies>-->
+    <!--            <dependency>-->
+    <!--                <groupId>com.changqing.gov</groupId>-->
+    <!--                <artifactId>changqing-file-biz</artifactId>-->
+    <!--                <version>${changqing-project.version}</version>-->
+    <!--            </dependency>-->
+    <!--            <dependency>-->
+    <!--                <groupId>com.changqing.gov</groupId>-->
+    <!--                <artifactId>changqing-file-controller</artifactId>-->
+    <!--                <version>${changqing-project.version}</version>-->
+    <!--            </dependency>-->
+    <!--            <dependency>-->
+    <!--                <groupId>com.changqing.gov</groupId>-->
+    <!--                <artifactId>changqing-file-entity</artifactId>-->
+    <!--                <version>${changqing-project.version}</version>-->
+    <!--            </dependency>-->
+
+    <!--        </dependencies>-->
+    <!--    </dependencyManagement>-->
+</project>

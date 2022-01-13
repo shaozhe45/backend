@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changqing.gov.tenant.dao.TenantMapper">
+
+    <select id="getByCode" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from d_tenant where code = #{code}
+    </select>
+
+    <select id="GetTenantDetail" resultType="java.util.HashMap">
+        select `id` ,`code` ,`name` ,`type`,`connect_type`,`status`,
+        `duty` ,`expiration_time`,`logo`,`describe_` ,`create_time` from d_tenant  where code=#{code}
+   </select>
+
+</mapper>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changqing.gov.msgs.dao.MsgsWarningInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.changqing.gov.msgs.entity.MsgsWarningInfo">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="site_code" jdbcType="VARCHAR" property="siteCode"/>
+        <result column="warning_code" jdbcType="VARCHAR" property="warningCode"/>
+        <result column="site_name" jdbcType="VARCHAR" property="siteName"/>
+        <result column="index_type" jdbcType="VARCHAR" property="indexType"/>
+        <result column="factor_code" jdbcType="VARCHAR" property="factorCode"/>
+        <result column="factor_name" jdbcType="VARCHAR" property="factorName"/>
+        <result column="fact_max_value" jdbcType="VARCHAR" property="factMaxValue"/>
+        <result column="warning_type" jdbcType="VARCHAR" property="warningType"/>
+        <result column="warning_level" jdbcType="VARCHAR" property="warningLevel"/>
+        <result column="warning_rule" jdbcType="LONGVARCHAR" property="warningRule"/>
+        <result column="message_type" jdbcType="VARCHAR" property="messageType"/>
+        <result column="monitor_time" jdbcType="TIMESTAMP" property="monitorTime"/>
+        <result column="message_infor" jdbcType="LONGVARCHAR" property="messageInfor"/>
+        <result column="is_deal" jdbcType="VARCHAR" property="isDeal"/>
+        <result column="receivier" jdbcType="VARCHAR" property="receivier"/>
+        <result column="send_time" jdbcType="TIMESTAMP" property="sendTime"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="warningContent" jdbcType="VARCHAR" property="warningContent"/>
+
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id,site_code,site_name,index_type,warning_code,factor_code,factor_name,fact_max_value,warning_type,warning_level,message_type,
+        warning_rule,monitor_time,message_infor,is_deal,receivier,send_time,status,create_user,create_time,update_user,update_time,warningContent
+    </sql>
+
+    <!--待处理告警分页信息查询-->
+    <select id="queryResult" parameterType="java.util.Map" resultMap="BaseResultMap">
+        SELECT
+        amd.id AS id,
+        amd.site_code AS site_code,
+        amd.site_name AS site_name,
+        amd.index_type AS index_type,
+        amd.warning_code AS warning_code,
+        amd.factor_code AS factor_code,
+        amd.factor_name AS factor_name,
+        amd.fact_max_value AS fact_max_value,
+        amd.warning_type AS warning_type,
+        amd.warning_level AS warning_level,
+        amd.message_type AS message_type,
+        amd.warning_rule AS warning_rule,
+        amd.monitor_time AS monitor_time,
+        amd.message_infor AS message_infor,
+        amd.is_deal AS is_deal,
+        amd.receivier AS receivier,
+        amd.send_time AS send_time,
+        amd.STATUS AS STATUS,
+        amd.create_user AS create_user,
+        amd.create_time AS create_time,
+        amd.update_user AS update_user,
+        amd.update_time AS update_time,
+        mec.warning_content as warningContent
+        FROM
+        autowarning_message_detail AS amd
+        LEFT JOIN autowarning_message_detail_deal_msg AS mec ON amd.warning_code = mec.warning_code
+        WHERE 1 = 1
+        <if test="data.warningCode != null and data.warningCode != ''">
+            and amd.warning_code = #{data.warningCode,jdbcType = VARCHAR}
+        </if>
+        <if test="data.siteName != null and data.siteName != ''">
+            and amd.site_name = #{data.siteName,jdbcType = VARCHAR}
+        </if>
+        <if test="data.factorName != null and data.factorName != ''">
+            and amd.factor_name = #{data.factorName,jdbcType = VARCHAR}
+        </if>
+        <if test="data.updateUser != null and data.updateUser != ''">
+            and amd.update_user = #{data.updateUser,jdbcType = BIGINT}
+        </if>
+        <if test="data.monitorTime != null">
+            and ( amd.monitor_time <![CDATA[>=]]> #{data.monitorTimeStart,jdbcType=TIMESTAMP} AND amd.monitor_time
+            <![CDATA[<=]]> #{data.monitorTimeEnd,jdbcType=TIMESTAMP} )
+        </if>
+        <if test="data.updateTime != null">
+            and ( amd.update_time <![CDATA[>=]]> #{data.updateTimeStart,jdbcType=TIMESTAMP} AND amd.update_time
+            <![CDATA[<=]]> #{data.updateTimeEnd,jdbcType=TIMESTAMP} )
+        </if>
+        <if test="data.indexType != null and data.indexType != ''">
+            and amd.index_type = #{data.indexType,jdbcType = VARCHAR}
+        </if>
+        <if test="data.warningLevel != null and data.warningLevel != '' ">
+            and amd.warning_level = #{data.warningLevel,jdbcType = VARCHAR}
+        </if>
+        <if test="data.isDeal != null and data.isDeal != '' ">
+            and amd.is_deal = #{data.isDeal,jdbcType = VARCHAR}
+        </if>
+        <if test="data.receivier != null and data.receivier != '' ">
+            and amd.receivier = #{data.receivier,jdbcType = BIGINT}
+        </if>
+    </select>
+
+    <!--查询对应告警编码的处理状态-->
+    <select id="selectWarningCode" parameterType="java.lang.String" resultType="String">
+    select amd.is_deal from autowarning_message_detail as amd where 1=1
+        <if test="receivier != null and warningCode != '' ">
+            AND amd.receivier = #{receivier,jdbcType=VARCHAR}
+        </if>
+        <if test="warningCode != null and warningCode != '' ">
+            AND amd.warning_code = #{warningCode,jdbcType=VARCHAR}
+        </if>
+
+</select>
+
+    <!--处理状态修改-->
+    <update id="isDeal" parameterType="java.lang.String">
+        UPDATE autowarning_message_detail AS m
+        <set>
+            <if test="isDeal != null">
+                m.is_deal = #{isDeal,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                m.update_user = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateUser != null">
+                m.receivier = #{updateUser,jdbcType=VARCHAR},
+            </if>
+            <if test="updateTime != null">
+                m.update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        WHERE 1=1
+        <if test="warningCode != null and warningCode != '' ">
+            AND m.warning_code = #{warningCode,jdbcType=VARCHAR}
+        </if>
+        <if test="receivier != null and receivier != '' ">
+            AND m.receivier = #{receivier,jdbcType=VARCHAR}
+        </if>
+
+    </update>
+
+    <insert id="insertMsgContent" parameterType="java.lang.String">
+        insert into autowarning_message_detail_deal_msg (warning_code,warning_content,warning_time) values (#{warningCode,jdbcType = VARCHAR},#{warningContent,jdbcType = VARCHAR},#{warningTime,jdbcType = TIMESTAMP})
+    </insert>
+</mapper>

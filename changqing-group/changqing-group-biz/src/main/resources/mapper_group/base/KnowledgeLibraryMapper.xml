@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.changqing.gov.group.dao.KnowledgeLibraryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.changqing.gov.group.entity.KnowledgeLibrary">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="create_user" jdbcType="BIGINT" property="createUser"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="update_user" jdbcType="BIGINT" property="updateUser"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="type_id" jdbcType="BIGINT" property="typeId"/>
+        <result column="manager_id" jdbcType="BIGINT" property="managerId"/>
+        <result column="manager_name" jdbcType="VARCHAR" property="managerName"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
+        <result column="status" jdbcType="BIT" property="status"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id
+        ,create_time,create_user,update_time,update_user,
+        name, type_id, manager_id, status
+    </sql>
+
+    <select id="getLibraryPage" parameterType="com.changqing.gov.group.entity.KnowledgeLibrary"
+            resultType="com.changqing.gov.group.entity.KnowledgeLibrary">
+        select a.id, a.name, a.`status`, a.create_time, b.`name` as manager_name, b.mobile
+        from t_knowledge_library a
+                 left join c_auth_user b on a.manager_id = b.id
+        where 1==1
+        <if test="model.type_id != null and model.type_id != ''">
+            and a.type_id = #{model.type_id,jdbcType=BIGINT}
+        </if>
+        <if test="model.id != null and model.id != ''">
+            and a.id = #{model.id,jdbcType=BIGINT}
+        </if>
+        <if test="model.name != null and model.name != ''">
+            and a.name like CONCAT('%',#{model.name,jdbcType=BIGINT},'%')
+        </if>
+        <if test="model.status != null and model.status != ''">
+            and a.status = #{model.status,jdbcType=BOOLEAN}
+        </if>
+    </select>
+
+</mapper>
